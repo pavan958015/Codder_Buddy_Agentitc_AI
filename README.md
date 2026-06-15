@@ -159,6 +159,6 @@ Try these out of the box to test the auth, testing, and deployment features:
 <!-- Copyright © Codebasics Inc. All rights reserved. -->
 📧 **Contact Me:** [pavansoni210129@gmail.com](mailto:pavansoni210129@gmail.com)
 <br/><br/>
-Thanks for visiting Coder Buddy!
+🌟 **Thank you for checking out Coder Buddy! Let's build something amazing together.** 🚀
 
 </div>
