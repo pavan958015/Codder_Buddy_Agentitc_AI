@@ -12,6 +12,7 @@ This document details the technologies, capabilities, and system features curren
   * **Ollama Local LLM API** (Local fallback model: `gemma4:e2b-it-qat` via `langchain-ollama`)
 * **Data Validation:** Pydantic (v2 schemas for structured tool outputs and state representations)
 * **Development Environments:** PyCharm, VS Code, and CLI Terminal
+* **Interactive UI Dashboard Stack:** FastAPI / Uvicorn (Event-streaming SSE backend), HTML5 / Vanilla CSS / ES6 JavaScript (Glassmorphic reactive panel)
 
 ---
 
@@ -46,25 +47,21 @@ This document details the technologies, capabilities, and system features curren
 - Platform blueprints: **Render** (`render.yaml`) and **Vercel** (`vercel.json`) configurations.
 - Custom step-by-step guides (`DEPLOY.md`) automatically created for every project.
 
+### 8. Interactive Web UI Dashboard
+- Real-time event logging and status timeline tracking for Planner, Architect, Coder, and Reviewer agents.
+- Live-scrolling backend terminal output feeds via Server-Sent Events (SSE).
+- Interactive prompt editor featuring custom agent execution recursion configuration.
+- Single-click download of generated project folders as pre-packaged ZIP archives.
+
 ---
 
 ## 📡 Cloud Deployment Automation
-Coder Buddy changes are automatically synchronized to GitHub in the background.
+Coder Buddy changes can be automatically synchronized to GitHub in the background.
 * **Sync command:** `python git_auto_sync.py`
 
----
 
 ## 🔮 Future Roadmap & Ideas
-* Interactive UI web dashboard for monitoring Coder Buddy runs.
 * Native support for frontend framework initialization (React, Vite, Next.js).
 * Automated API documentation generation (OpenAPI/Swagger schemas).
-
-
-
-🔮 Future Upgrade Idea:
-
-
-user interface (done)
-Modify Existing Project
-live chat box 
-make a zip file to download proejct 
+* Ability to modify existing projects/codebases.
+* Real-time live chat box for interactive agent alignment.
