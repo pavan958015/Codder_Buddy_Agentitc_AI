@@ -12,12 +12,12 @@
 
 <br/>
 
-```text
+<pre align="center">
   ╔═════════════════════════════════════════════════════════════╗
   ║                🤖  C O D E R   B U D D Y                     ║
   ║             AI Multi-Agent Software Engineers               ║
   ╚═════════════════════════════════════════════════════════════╝
-```
+</pre>
 
 ### ⚡ Natural language request in ➔ Complete working repository out ⚡
 
