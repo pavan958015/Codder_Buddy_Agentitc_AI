@@ -157,6 +157,6 @@ Try these out of the box to test the auth, testing, and deployment features:
 <div align="center">
 
 <!-- Copyright © Codebasics Inc. All rights reserved. -->
-Thanks for visiting Coder Buddy!
+Thanks for visiting to Coder Buddy!
 
 </div>
