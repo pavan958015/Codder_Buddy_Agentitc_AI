@@ -1,4 +1,5 @@
 let eventSource = null;
+let lastProjectDir = null;
 
 // Submit prompt to backend via SSE stream
 function submitPrompt(event) {
@@ -153,6 +154,8 @@ function renderSuccess(plan, projectDir) {
     const successPanel = document.getElementById('success-panel');
     if (!successPanel) return;
 
+    lastProjectDir = projectDir;
+
     document.getElementById('res-project-name').textContent = plan.name || 'N/A';
     document.getElementById('res-project-path').textContent = projectDir || 'N/A';
     document.getElementById('res-project-tech').textContent = plan.techstack || 'N/A';
@@ -174,3 +177,14 @@ function renderSuccess(plan, projectDir) {
 
     successPanel.classList.remove('hidden');
 }
+
+// Download project ZIP using lastProjectDir path
+function downloadZip() {
+    if (!lastProjectDir) {
+        alert("No project path is active. Generate a project first.");
+        return;
+    }
+    const url = `/api/download?project_dir=${encodeURIComponent(lastProjectDir)}`;
+    window.location.href = url;
+}
+

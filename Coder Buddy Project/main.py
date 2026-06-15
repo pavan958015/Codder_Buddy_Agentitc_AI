@@ -1,5 +1,7 @@
 import argparse
 import sys
+import os
+import zipfile
 import traceback
 import warnings
 import asyncio
@@ -8,7 +10,7 @@ import io
 import queue
 import threading
 import contextlib
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, HTTPException
 from fastapi.responses import StreamingResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
@@ -135,6 +137,43 @@ def api_stream(prompt: str, recursion_limit: int = 100):
             await asyncio.sleep(0.1)
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")
+
+PROJECTS_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "Projects"))
+
+def validate_project_dir(project_dir: str) -> str:
+    abs_dir = os.path.abspath(project_dir)
+    if not abs_dir.startswith(PROJECTS_ROOT):
+        raise HTTPException(status_code=400, detail="Invalid project directory path.")
+    if not os.path.exists(abs_dir):
+        raise HTTPException(status_code=404, detail="Project directory not found.")
+    return abs_dir
+
+@app.get("/api/download")
+def download_project_zip(project_dir: str):
+    try:
+        abs_project_dir = validate_project_dir(project_dir)
+        project_name = os.path.basename(abs_project_dir)
+        
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+            for root, dirs, files in os.walk(abs_project_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(file_path, abs_project_dir)
+                    zip_file.write(file_path, arcname=os.path.join(project_name, rel_path))
+                    
+        zip_buffer.seek(0)
+        return Response(
+            content=zip_buffer.getvalue(),
+            media_type="application/zip",
+            headers={
+                "Content-Disposition": f"attachment; filename={project_name}.zip"
+            }
+        )
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create ZIP archive: {str(e)}")
 
 # Mount web assets to host dashboard static folder
 app.mount("/ui", StaticFiles(directory="agent/ui", html=True), name="ui")
