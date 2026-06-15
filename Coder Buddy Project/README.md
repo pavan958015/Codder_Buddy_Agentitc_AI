@@ -159,6 +159,7 @@ Try these out of the box to test the auth, testing, and deployment features:
 <!-- Copyright © Codebasics Inc. All rights reserved. -->
 contect with me Email: [pavansoni210129@gmail.com]
 <br>
+</br>
 Thanks for visiting to Coder Buddy!
 
 </div>
