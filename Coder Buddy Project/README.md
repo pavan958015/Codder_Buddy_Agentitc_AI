@@ -157,8 +157,8 @@ Try these out of the box to test the auth, testing, and deployment features:
 <div align="center">
 
 <!-- Copyright © Codebasics Inc. All rights reserved. -->
-contect with me Email: [pavansoni210129@gmail.com]
+📧 **Contact Me:** [pavansoni210129@gmail.com](mailto:pavansoni210129@gmail.com)
 <br/><br/>
-Thanks for visiting to Coder Buddy!
+Thanks for visiting Coder Buddy!
 
 </div>
