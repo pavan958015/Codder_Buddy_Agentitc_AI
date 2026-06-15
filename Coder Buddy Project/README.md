@@ -1,9 +1,10 @@
 <div align="center">
 
 <img src="https://img.shields.io/badge/LangGraph-Multi--Agent-7F77DD?style=for-the-badge&logoColor=white" />
+<img src="https://img.shields.io/badge/FastAPI-Dashboard-009688?style=for-the-badge&logoColor=white" />
 <img src="https://img.shields.io/badge/Groq-LLM-0F6E56?style=for-the-badge&logoColor=white" />
 <img src="https://img.shields.io/badge/LangChain-Framework-993C1D?style=for-the-badge&logoColor=white" />
-<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+<img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
 
 <br/><br/>
 
@@ -16,7 +17,7 @@
 
 ### *Natural language in → working project out*
 
-*A multi-agent AI development team that turns your request into a complete, working codebase — file by file — using real developer workflows.*
+*A multi-agent AI development team that turns your request into a complete, working codebase — file by file — using real developer workflows, now managed via an interactive web dashboard.*
 
 </div>
 
@@ -27,10 +28,12 @@ Coder Buddy Project/
 └── Coder Buddy Project/          # Main codebase
     ├── .env                      # API keys & Env variables
     ├── .venv/                    # Main python virtual environment (with all dependencies)
-    ├── Projects/                 # Empty folder (aapke naye generated projects ke liye)
+    ├── Projects/                 # Generated project workspaces
     ├── agent/                    # Code logic / Multi-agent structure
-    ├── resources/                # Assets/Diagrams for readme
-    ├── main.py                   # Main entry file
+    │   ├── resources/            # Templates library & assets
+    │   ├── ui/                   # Web Dashboard frontend assets (HTML, CSS, JS)
+    │   └── ...                   
+    ├── main.py                   # Main entry file (starts Web UI or CLI)
     ├── pyproject.toml            # Dependencies metadata
     └── README.md                 # Project documentation
 
@@ -40,21 +43,42 @@ Coder Buddy Project/
 
 ## 🏗️ Architecture
 
-Three specialized agents work in sequence, each handing off structured context to the next — like a real development team:
+Four specialized agents work in sequence, executing transition check loops and handing off structured context — like a real development team:
 
 ```
-┌──────────────┐     ┌────────────────┐     ┌─────────────────┐
-│   🗂 Planner  │ ──▶ │  🏛 Architect  │ ──▶ │    💻 Coder     │
-│              │     │                │     │                 │
-│ Analyzes the │     │ Breaks plan    │     │ Writes files,   │
-│ request and  │     │ into file-     │     │ runs tools,     │
-│ generates a  │     │ level tasks    │     │ iterates with   │
-│ project plan │     │ with context   │     │ ReAct loop      │
-└──────────────┘     └────────────────┘     └─────────────────┘
-      │                     │                       │
-   Pydantic             Pydantic              Tool Use Loop
-   Schema               Schema               (write · read · run)
+┌──────────────┐     ┌────────────────┐     ┌─────────────────┐     ┌──────────────────┐
+│   🗂 Planner  │ ──▶ │  🏛 Architect  │ ──▶ │    💻 Coder     │ ──▶ │   🔍 Reviewer    │
+│              │     │                │     │                 │     │                  │
+│ Analyzes the │     │ Breaks plan    │     │ Writes files,   │     │ Compiles syntax, │
+│ request and  │     │ into file-     │     │ runs tools,     │     │ runs unittests   │
+│ generates a  │     │ level tasks    │     │ iterates with   │     │ and loops back   │
+│ project plan │     │ with context   │     │ ReAct loop      │     │ if tests fail    │
+└──────────────┘     └────────────────┘     └─────────────────┘     └──────────────────┘
+       │                     │                       │                       │
+    Pydantic              Pydantic             Tool Use Loop            Auto Runner
+    Schema                Schema            (write · read · templates)  (unittest check)
 ```
+
+---
+
+## 🚀 Key Upgrades & Features
+
+### 💻 1. Interactive Web Dashboard UI
+- Running `python main.py` opens a browser dashboard at `http://localhost:8000/`.
+- Features an input prompt card, a real-time progress pipeline timeline, and an auto-scrolling terminal log console showing backend stdout streams.
+
+### 🔐 2. Production User Authentication Templates
+- Pre-built code templates for **JWT token-based auth** (FastAPI) and **Session-based auth** (Flask).
+- Fully responsive **Glassmorphic Login/Signup HTML UI templates** utilizing localized token storage.
+
+### 🧪 3. Advanced Automated Testing in Reviewer Loop
+- Automatic scan for unit test scripts (`test_*.py` or `tests/` directories).
+- Execution of unit test suites (`python -m unittest`) within the review phase to guarantee correctness.
+
+### 🐳 4. Cloud Hosting & Deployment Configs
+- Containerization setup: **Dockerfile** and **docker-compose.yml** configuration for local and cloud environments.
+- Platform blueprints: **Render** (`render.yaml`) and **Vercel** (`vercel.json`) configurations.
+- Custom step-by-step guides (`DEPLOY.md`) automatically created for every project.
 
 ---
 
@@ -66,14 +90,16 @@ agent/
 ├── llm/          # Groq · Ollama       → LLM client initialization
 ├── models/       # Pydantic            → Validation schemas & agent states
 ├── prompts/      # LangChain           → Prompt templates per agent
-├── tools/        # Custom OS tools     → write_file · read_file · list_files · run_cmd
+├── resources/    # Templates Library   → Auth (FastAPI/Flask/UI), Docker, Vercel, Render configs
+├── tools/        # Custom OS tools     → write_file · read_file · list_files · get_template
+├── ui/           # Web Assets          → index.html, style.css, app.js
 ├── services/     # Micro-agent logic   → Node implementations & state routers
 └── graph.py      # LangGraph           → Assembles, compiles & exposes the StateGraph
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🏁 Getting Started
 
 ### Prerequisites
 
@@ -82,13 +108,13 @@ agent/
 | `uv` package manager | Install from [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/) |
 | Groq API key | Create one at [console.groq.com/keys](https://console.groq.com/keys) |
 
-### ⚙️ Installation
+### ⚙️ Installation & Running
 
 ```bash
-# 1. Create & activate virtual environment
+# 1. Clone/navigate to directory and create/activate virtual environment
 uv venv
-source .venv/bin/activate        # Linux/macOS
-# .venv\Scripts\activate         # Windows
+# source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate           # Windows
 
 # 2. Install dependencies
 uv pip install -r pyproject.toml
@@ -96,79 +122,41 @@ uv pip install -r pyproject.toml
 # 3. Configure environment
 cp .sample_env .env              # then fill in your values
 
-# 4. Run
-python main.py
+# 4. Start Coder Buddy Web UI (Default)
+uv run python main.py
+
+# 5. Run in CLI terminal mode
+uv run python main.py --cli
 ```
 
 ---
 
 ## 🧪 Example Prompts
 
-Try these out of the box:
+Try these out of the box to test the auth, testing, and deployment features:
 
-> 🌤️ **Weather Dashboard**
-> Build a responsive modern Weather Dashboard in HTML/CSS/JS that displays current forecasts, features sleek dark mode styling, handles search input errors gracefully, and persists search history using localStorage.
+> 🔐 **Full-Stack Task Board with Auth & Docker**
+> Create a comprehensive task board web app with a Python backend using FastAPI and SQLite. Include JWT authentication for registration and login, fully responsive HTML login page, unittest validation suite, and a Dockerfile for deployment.
 
-> ✅ **Task Planner**
-> Create a comprehensive Task Planner web app using HTML, CSS, and JS with priority tags (High/Medium/Low), category filtering, smooth slide-out transition animations, and robust localStorage state.
-
-> 📚 **FastAPI Book Catalog**
-> Implement a fully functional RESTful FastAPI backend for a Book Catalog system with a SQLite database, SQLAlchemy models, Pydantic input schemas, and complete CRUD endpoints.
-
-> 📇 **Full-Stack Contact Manager**
-> Build a full-stack Contact Manager with a React (Vite) + Tailwind CSS frontend, integrated with a Spring Boot REST API backend and a PostgreSQL database.
-
-> 🛍️ **E-Commerce Explorer**
-> Create a modern full-stack E-commerce product explorer with a Next.js frontend and a Node.js/Express backend connected to MongoDB.
+> 📊 **Product Catalog with Session Auth**
+> Build a product catalogue system using Flask sessions, SQLAlchemy db models, unit testing suites, and a render.yaml configuration guide.
 
 ---
 
-## 🔧 How the Coder Agent Works
-
-The Coder Agent uses a **ReAct (Reason + Act)** loop — it plans, executes, observes, and iterates until the task is complete:
-
-```
-  ┌─────────────┐
-  │  Task Input │
-  └──────┬──────┘
-         │
-         ▼
-  ┌─────────────┐     ┌─────────────────────────────────────┐
-  │   Reason    │────▶│  What file do I need? What's next?  │
-  └──────┬──────┘     └─────────────────────────────────────┘
-         │
-         ▼
-  ┌─────────────┐     ┌────────────────────────────────────────┐
-  │     Act     │────▶│  write_file · read_file · run_cmd · …  │
-  └──────┬──────┘     └────────────────────────────────────────┘
-         │
-         ▼
-  ┌─────────────┐
-  │   Observe   │──── loop until done ──┐
-  └──────┬──────┘                       │
-         │                              │
-         ▼                              │
-  ┌─────────────┐                       │
-  │   Output    │◀──────────────────────┘
-  └─────────────┘
-```
-
----
-
-## 🛠️ Available Tools
+## 🔧 Available Tools
 
 | Tool | Description |
 |---|---|
 | `write_file` | Safely writes content to a path-validated file |
 | `read_file` | Reads an existing file from the output project |
 | `list_files` | Lists all files in a directory |
-| `run_cmd` | Executes shell commands (linting, formatting, etc.) |
+| `get_template` | Retrieves pre-defined templates for JWT Auth, Docker, Vercel, Render, or Unittest |
 
 ---
 
 <div align="center">
 
 <!-- Copyright © Codebasics Inc. All rights reserved. -->
-Thanks for visiting
+Thanks for visiting Coder Buddy!
 
 </div>
