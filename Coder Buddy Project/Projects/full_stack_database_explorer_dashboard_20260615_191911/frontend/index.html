@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Database Connection Manager</h1>
+        <p>Monitor and manage connections to MySQL and MongoDB instances.</p>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Connection Health Badges -->
+        <section id="health-badges" class="card health-status">
+            <h2>Connection Status</h2>
+            <div class="badge mysql-status" data-connection-id="mysql_1">MySQL: <span class="status-indicator pending">Pending</span></div>
+            <div class="badge mongo-status" data-connection-id="mongo_1">MongoDB: <span class="status-indicator pending">Pending</span></div>
+        </section>
+
+        <!-- MySQL Management Section -->
+        <section id="mysql-management" class="card management-panel">
+            <h2>MySQL Connection</h2>
+            <form id="mysql-connection-form">
+                <div class="form-group">
+                    <label for="mysql-host">Host:</label>
+                    <input type="text" id="mysql-host" placeholder="e.g., localhost" required>
+                </div>
+                <div class="form-group">
+                    <label for="mysql-port">Port:</label>
+                    <input type="number" id="mysql-port" placeholder="e.g., 3306" required>
+                </div>
+                <button type="submit" class="btn primary">Test Connection</button>
+            </form>
+
+            <h3>Active MySQL Instances</h3>
+            <table id="mysql-instances-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content injected here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- MongoDB Management Section -->
+        <section id="mongo-management" class="card management-panel">
+            <h2>MongoDB Connection</h2>
+            <form id="mongo-connection-form">
+                <div class="form-group">
+                    <label for="mongo-uri">URI:</label>
+                    <input type="text" id="mongo-uri" placeholder="e.g., mongodb://localhost:27017/testdb" required>
+                </div>
+                <button type="submit" class="btn primary">Test Connection</button>
+            </form>
+
+            <h3>Active MongoDB Instances</h3>
+            <table id="mongo-instances-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>URI</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic content injected here -->
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Database Management System. CODER Agent Implementation.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

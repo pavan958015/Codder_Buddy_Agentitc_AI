@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: fastapi_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Database connection string for the FastAPI application
+      DATABASE_URL: postgresql://user:password@db:5432/mydatabase
+      # Other necessary environment variables (e.g., SECRET_KEY)
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      # Expose port for local debugging if needed, otherwise internal only is fine
+      - "5432:5432"
+    volumes:
+      # Persist database data to a named volume
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

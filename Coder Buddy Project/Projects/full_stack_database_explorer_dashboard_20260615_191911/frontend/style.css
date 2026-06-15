@@ -1,0 +1,191 @@
+/* frontend/style.css */
+
+/* --- Dark Mode Variables --- */
+:root {
+    --bg-primary: #121212;          /* Main background color (very dark) */
+    --bg-secondary: #1e1e1e;        /* Secondary background for cards/panels */
+    --text-main: #e0e0e0;           /* Light text color */
+    --text-dim: #a0a0a0;           /* Dim text color */
+    --border-color: #333333;        /* Subtle border color */
+    --accent-color: #4CAF50;       /* Primary accent color (e.g., for buttons/highlights) */
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px; /* Padding for overall layout */
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+/* --- Card Styling --- */
+.card {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Table Styling --- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures border radius works on table */
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background-color: #2a2a2a; /* Slightly lighter header */
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.data-table tr:hover {
+    background-color: #252525;
+}
+
+/* --- Input and Button Styling (Basic) --- */
+input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    background-color: #252525; /* Slightly lighter input background */
+    color: var(--text-main);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #66bb6a; /* Lighter accent on hover */
+}
+
+/* --- Additional Classes for Layout, Badges & Indicators --- */
+.health-status {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background-color: #2a2a2a;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.status-indicator.pending {
+    background-color: #ffd54f;
+    color: #333;
+}
+
+.status-indicator.online {
+    background-color: #81c784;
+    color: #1b5e20;
+}
+
+.status-indicator.offline {
+    background-color: #e57373;
+    color: #b71c1c;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.btn.primary {
+    background-color: #1e88e5;
+}
+
+.btn.primary:hover {
+    background-color: #1565c0;
+}
+
+.btn.delete-btn {
+    background-color: #e53935;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.btn.delete-btn:hover {
+    background-color: #c62828;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--accent-color);
+}

@@ -1,0 +1,79 @@
+/* frontend/style.css */
+
+/* Base styles for the dark glassmorphism theme */
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Dark blue/slate gradient background */
+    color: #e2e8f0; /* Light text color for contrast */
+    font-family: 'Inter', sans-serif; /* Assuming a modern font stack */
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Main container styling - subtle overall glass effect */
+.glass-container {
+    background: rgba(30, 41, 59, 0.6); /* Darker semi-transparent background */
+    backdrop-filter: blur(10px); /* The core glassmorphism effect */
+    border: 1px solid rgba(71, 85, 105, 0.3); /* Subtle border for definition */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Deep shadow for depth */
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Card styling - individual feedback items */
+.feedback-card {
+    background: rgba(40, 51, 68, 0.7); /* Slightly different shade for cards */
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feedback-card:hover {
+    transform: translateY(-4px); /* Slight lift on hover */
+    box-shadow: 0 12px 30px rgba(71, 85, 105, 0.5);
+}
+
+/* Typography for feedback items */
+.feedback-card h3 {
+    color: #60a5fa; /* Light blue accent color */
+    margin-top: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* Input field styling */
+.input-field {
+    background: rgba(255, 255, 255, 0.1); /* Very light background for inputs */
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    color: #e2e8f0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    width: 100%;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #60a5fa; /* Bright blue focus ring */
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Button styling (assuming a primary action button) */
+.btn-primary {
+    background-color: #3b82f6; /* Tailwind blue-500 equivalent */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+    transform: translateY(-1px);
+}
