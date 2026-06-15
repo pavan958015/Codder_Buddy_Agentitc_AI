@@ -8,14 +8,15 @@
 
 <br/><br/>
 
+<div align="center">
+
+
 ```
   ╔═══════════════════════════════╗
   ║   🤖  C O D E R  B U D D Y   ║
   ║   AI Multi-Agent Dev Team     ║
   ╚═══════════════════════════════╝
 ```
-
-<div align="center">
 
 # 🤖 CODER BUDDY
 
