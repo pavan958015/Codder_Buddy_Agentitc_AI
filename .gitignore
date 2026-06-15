@@ -24,5 +24,5 @@ __pycache__/
 .jbeval/
 .junie/
 
-# User output / generated projects
-**/Projects/
+**/Projects/*
+!**/Projects/leetcode_premium_client_side_dashboard_20260615_134541/
