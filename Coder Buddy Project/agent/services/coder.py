@@ -2,7 +2,7 @@ from langgraph.prebuilt import create_react_agent
 from agent.llm import llm
 from agent.models import CoderState
 from agent.prompts import coder_system_prompt
-from agent.tools import read_file, write_file, list_files, get_current_directory
+from agent.tools import read_file, write_file, list_files, get_current_directory, get_template
 
 
 def coder_agent(state: dict) -> dict:
@@ -14,6 +14,7 @@ def coder_agent(state: dict) -> dict:
         write_file,
         list_files,
         get_current_directory,
+        get_template,
     ]
 
     if feedbacks:

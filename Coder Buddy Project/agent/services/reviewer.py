@@ -44,6 +44,27 @@ def reviewer_agent(state: dict) -> dict:
             if code != 0:
                 test_output += f"Syntax error in {py_file}:\n{stderr}\n"
 
+    # Auto-detect and run unit tests
+    test_files = [
+        f for f in files_list 
+        if f.endswith(".py") and (
+            f.startswith("test_") or 
+            "/test_" in f.replace("\\", "/") or 
+            "\\test_" in f
+        )
+    ]
+    if test_files:
+        print(f"Reviewer: Found test files to run: {test_files}")
+        for test_file in test_files:
+            print(f"Reviewer: Executing unit tests in {test_file}...")
+            code, stdout, stderr = run_cmd.run(
+                f"python -m unittest {test_file}"
+            )
+            if code != 0:
+                test_output += f"Test failures in {test_file}:\nCode: {code}\nStdout: {stdout}\nStderr: {stderr}\n"
+            else:
+                test_output += f"Test passed successfully for {test_file}.\nStdout: {stdout}\n"
+
     sys_prompt = reviewer_system_prompt()
     user_prompt = reviewer_user_prompt(files_summary, test_output)
 

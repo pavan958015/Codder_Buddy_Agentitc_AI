@@ -6,3 +6,4 @@ from agent.tools.fs_tools import (
     safe_path_for_project,
 )
 from agent.tools.cmd_tools import run_cmd
+from agent.tools.template_tools import get_template

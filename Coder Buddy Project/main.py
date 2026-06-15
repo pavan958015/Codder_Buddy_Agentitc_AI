@@ -1,6 +1,10 @@
 import argparse
 import sys
 import traceback
+import warnings
+
+# Suppress deprecation and library-specific warnings for a clean CLI output
+warnings.filterwarnings("ignore")
 
 from agent.graph import agent
 
