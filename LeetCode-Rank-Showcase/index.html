@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Rank & Stats Showcase</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="glow-bg-secondary"></div>
+
+    <div class="container">
+        <!-- Header & Search -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-code brand-icon"></i>
+                <h1>LeetCode <span>Showcase</span></h1>
+            </div>
+            <div class="search-container">
+                <form id="search-form">
+                    <div class="search-wrapper">
+                        <i class="fa-solid fa-user search-icon"></i>
+                        <input type="text" id="username-input" placeholder="Enter LeetCode username..." value="pavan9580" required autocomplete="off">
+                        <button type="submit" id="search-btn">
+                            <span class="btn-text">Search</span>
+                            <i class="fa-solid fa-magnifying-glass btn-icon"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Layout -->
+        <main class="dashboard-grid" id="dashboard">
+            <!-- Left Panel: Profile Details -->
+            <section class="card profile-card" id="profile-card">
+                <div class="skeleton-wrapper">
+                    <div class="skeleton-avatar"></div>
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-subtitle"></div>
+                    <div class="skeleton-text"></div>
+                </div>
+                <div class="profile-content hidden">
+                    <div class="avatar-container">
+                        <img id="user-avatar" src="" alt="User Avatar">
+                        <div class="rank-badge-floater">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                    </div>
+                    <h2 id="user-name">Loading...</h2>
+                    <p class="user-username">@<span id="user-username-text">username</span></p>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="meta-info">
+                        <div class="meta-item" id="meta-school-container">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span id="user-school">School</span>
+                        </div>
+                        <div class="meta-item" id="meta-country-container">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="user-country">Country</span>
+                        </div>
+                    </div>
+
+                    <p class="user-bio" id="user-bio">User biography goes here.</p>
+
+                    <div class="social-links">
+                        <a id="link-github" href="#" target="_blank" title="GitHub" class="social-btn">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a id="link-linkedin" href="#" target="_blank" title="LinkedIn" class="social-btn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a id="link-website" href="#" target="_blank" title="Portfolio" class="social-btn">
+                            <i class="fa-solid fa-globe"></i>
+                        </a>
+                    </div>
+
+                    <div class="tags-section">
+                        <h3>Skills & Topics</h3>
+                        <div class="skills-tags" id="skills-tags">
+                            <!-- Tags will be dynamically loaded -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Statistics Dashboard -->
+            <div class="stats-panel">
+                <!-- Row 1: Global Rank and Reputation -->
+                <div class="rank-row">
+                    <section class="card rank-card" id="rank-card">
+                        <div class="skeleton-wrapper">
+                            <div class="skeleton-title" style="width: 40%"></div>
+                            <div class="skeleton-large-text"></div>
+                        </div>
+                        <div class="rank-content hidden">
+                            <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="card-labels">
+                                <h3>Global Ranking</h3>
+                                <p class="stat-highlight" id="global-rank">#0</p>
+                                <p class="stat-subtitle">Top <span id="rank-percent">0</span>% globally</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="card reputation-card" id="reputation-card">
+                        <div class="skeleton-wrapper">
+                            <div class="skeleton-title" style="width: 40%"></div>
+                            <div class="skeleton-large-text"></div>
+                        </div>
+                        <div class="reputation-content hidden">
+                            <div class="card-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                            <div class="card-labels">
+                                <h3>Reputation</h3>
+                                <p class="stat-highlight" id="user-reputation">0</p>
+                                <p class="stat-subtitle">Community Contribution Points</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Row 2: Problem Solving Progress -->
+                <section class="card solved-card" id="solved-card">
+                    <div class="skeleton-wrapper">
+                        <div class="skeleton-title" style="width: 30%"></div>
+                        <div class="skeleton-progress-row"></div>
+                        <div class="skeleton-progress-row"></div>
+                    </div>
+                    <div class="solved-content hidden">
+                        <div class="solved-header">
+                            <h2>Problems Solved</h2>
+                            <div class="solved-total">
+                                <span class="solved-count" id="total-solved">0</span>
+                                <span class="solved-slash">/</span>
+                                <span class="solved-target" id="total-questions">3300</span>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-container">
+                            <!-- Left: Large Total Solved Circle -->
+                            <div class="circle-progress-wrapper">
+                                <svg class="progress-ring" width="160" height="160">
+                                    <circle class="progress-ring-circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                                    <circle class="progress-ring-circle" id="circle-progress" stroke="url(#indigoGrad)" stroke-width="12" stroke-linecap="round" fill="transparent" r="70" cx="80" cy="80"/>
+                                    <!-- Gradient definition for circular progress -->
+                                    <defs>
+                                        <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#8b5cf6" />
+                                            <stop offset="100%" stop-color="#6366f1" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="circle-label">
+                                    <span id="circle-percent">0%</span>
+                                    <span class="sub-label">Solved</span>
+                                </div>
+                            </div>
+
+                            <!-- Right: Difficulty Breakdown Bars -->
+                            <div class="difficulty-bars">
+                                <!-- Easy -->
+                                <div class="difficulty-item easy">
+                                    <div class="diff-header">
+                                        <span class="diff-title">Easy</span>
+                                        <span class="diff-counts"><span id="easy-solved">0</span><span class="max-total">/780</span></span>
+                                    </div>
+                                    <div class="diff-bar-bg">
+                                        <div class="diff-bar-fill" id="easy-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- Medium -->
+                                <div class="difficulty-item medium">
+                                    <div class="diff-header">
+                                        <span class="diff-title">Medium</span>
+                                        <span class="diff-counts"><span id="medium-solved">0</span><span class="max-total">/1600</span></span>
+                                    </div>
+                                    <div class="diff-bar-bg">
+                                        <div class="diff-bar-fill" id="medium-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- Hard -->
+                                <div class="difficulty-item hard">
+                                    <div class="diff-header">
+                                        <span class="diff-title">Hard</span>
+                                        <span class="diff-counts"><span id="hard-solved">0</span><span class="max-total">/700</span></span>
+                                    </div>
+                                    <div class="diff-bar-bg">
+                                        <div class="diff-bar-fill" id="hard-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <!-- Error State overlay -->
+        <div class="error-container hidden" id="error-container">
+            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+            <h2 id="error-title">User Not Found</h2>
+            <p id="error-message">Could not fetch statistics for username. Please verify the spelling and try again.</p>
+            <button id="error-retry-btn" class="retry-btn">Try pavan9580</button>
+        </div>
+
+        <footer>
+            <p>Made with <i class="fa-solid fa-heart heart-icon"></i> for pavan9580 | Data powered by alfa-leetcode-api</p>
+        </footer>
+    </div>
+
+    <!-- Script file -->
+    <script src="app.js"></script>
+</body>
+</html>
