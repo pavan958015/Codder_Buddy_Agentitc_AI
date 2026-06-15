@@ -64,6 +64,8 @@ Four specialized agents work in sequence, executing transition check loops and h
 ## 🚀 Key Upgrades & Features
 
 ### 💻 1. Interactive Web Dashboard UI
+![Coder Buddy Web UI](Coder%20Buddy%20Project/resources/dashboard_screenshot.png)
+
 - Running `python main.py` opens a browser dashboard at `http://localhost:8000/`.
 - Features an input prompt card, a real-time progress pipeline timeline, and an auto-scrolling terminal log console showing backend stdout streams.
 
