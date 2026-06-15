@@ -10,25 +10,25 @@ Pydantic
 File System Tools
 PyCharm / VS Code IDE
 
-Full-stack application generation (Done)
+Full-Stack application generation
 
-Database integration (Done) - using localStorage
+Database integration - using localStorage & Real Databases (MySQL + MongoDB)
 
-File upload from the local file system  (Done)
-
-
-Code review and testing agents (Done)- 
+File upload from the local file system 
 
 
-Support for multiple programming languages (Done)
+Code review and testing agents 
+
+
+Support for multiple programming languages
 
 Cloud deployment automation (Finally github auto update Done)
 command is: python git_auto_sync.py
 
+
+
 // Future Technology-
 
-
-Real Database Integration (SQL/NoSQL)
 
 Real Cloud Hosting Deployment
 

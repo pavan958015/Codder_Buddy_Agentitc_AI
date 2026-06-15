@@ -19,6 +19,32 @@ def main():
             {"recursion_limit": args.recursion_limit}
         )
         print("Final State:", result)
+
+        # Attempt to save run details to MySQL and MongoDB if available
+        try:
+            plan = result.get("plan")
+            task_plan = result.get("task_plan")
+            project_dir = result.get("project_dir", "")
+            
+            if plan and task_plan:
+                print("\n[Database] Logging project run metadata to MySQL...")
+                from agent.database.mysql import save_project_run
+                run_id = save_project_run(
+                    project_name=plan.name,
+                    description=plan.description,
+                    techstack=plan.techstack,
+                    project_dir=str(project_dir)
+                )
+                
+                if run_id != -1:
+                    print("[Database] Logging project run details to MongoDB...")
+                    from agent.database.mongo import save_project_details
+                    plan_dict = plan.model_dump() if hasattr(plan, "model_dump") else plan
+                    task_plan_dict = task_plan.model_dump() if hasattr(task_plan, "model_dump") else task_plan
+                    save_project_details(run_id, plan_dict, task_plan_dict)
+        except Exception as db_err:
+            print(f"\n[Database Warning] Could not log run details: {db_err}")
+
     except KeyboardInterrupt:
         print("\nOperation cancelled by user.")
         sys.exit(0)
