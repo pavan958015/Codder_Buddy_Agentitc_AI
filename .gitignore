@@ -1,0 +1,28 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+**/venv/
+**/.venv/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables (Sensitive API keys)
+.env
+.env.*
+**/.env
+**/.env.*
+
+# IDEs and Editors
+.vscode/
+.idea/
+.jbeval/
+.junie/
+
+# User output / generated projects
+**/Projects/
