@@ -37,7 +37,7 @@
 ## 🚀 Key Features
 
 *   **👥 Autonomous Developer Team:** Orchestrates a sequence of specialized AI agents working together like a real development squad.
-*   **🌐 Real-Time Web Console:** A visual dashboard with a prompt editor, status timelines, active node highlights, and live-scrolling backend logs powered by SSE (Server-Sent Events).
+*   **🌐 Real-Time Web Console:** A visual dashboard featuring a prompt editor, active status timelines, live-scrolling backend logs (SSE), and single-click project ZIP downloads.
 *   **🔒 Production User Auth Templates:** Injects secure JWT auth (FastAPI) and session-based auth (Flask) with fully responsive Glassmorphic layouts.
 *   **🧪 Self-Healing Test Loop:** The Reviewer agent automatically discovers and runs tests (`python -m unittest`). If tests fail, errors are routed back to the Coder for auto-correction.
 *   **🐳 Deployment Blueprint Generator:** Creates production-ready `Dockerfile`, `docker-compose.yml`, and hosting configurations (`render.yaml`, `vercel.json`) customized for every generated app.
@@ -80,6 +80,8 @@ flowchart TD
 ## 💻 Interactive Web Dashboard UI
 
 Below is a preview of the Coder Buddy Interactive Web UI dashboard, accessible at `http://localhost:8000`:
+
+*   **💻 Interactive Web Dashboard:** Real-time event logging, status timeline tracker, live-scrolling terminal outputs, and single-click project ZIP downloads.
 
 ![Coder Buddy Web UI](Coder%20Buddy%20Project/resources/dashboard_screenshot.png)
 
