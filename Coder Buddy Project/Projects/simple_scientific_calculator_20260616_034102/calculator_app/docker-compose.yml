@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build: . # Assumes a Dockerfile exists in the current directory for building the backend image
+    ports:
+      - "8000:8000"
+    environment:
+      # Database connection details for the backend application. 
+      # These should match the configuration expected by your backend code (e.g., FastAPI/Flask).
+      DATABASE_URL: postgresql://user:password@db:5432/mydatabase
+      # Add any other necessary environment variables here, e.g.:
+      # SECRET_KEY: some_secure_key
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14-alpine # Using a stable PostgreSQL image
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      # Persist database data outside the container for data persistence across restarts
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

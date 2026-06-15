@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <!-- Link the external stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="calculator">
+    <!-- Display Area -->
+    <input type="text" id="display" class="calculator-display" disabled value="0">
+
+    <!-- Buttons Grid (5 columns) -->
+    <div class="calculator-buttons">
+        <!-- Row 1 -->
+        <button class="btn-scientific" onclick="handleUnary('sin')">sin</button>
+        <button class="btn-scientific" onclick="handleUnary('cos')">cos</button>
+        <button class="btn-scientific" onclick="handleUnary('tan')">tan</button>
+        <button class="btn-scientific" onclick="handleUnary('log')">ln</button>
+        <button class="btn-clear" onclick="clearDisplay()">C</button>
+
+        <!-- Row 2 -->
+        <button class="btn-scientific" onclick="handleUnary('sqrt')">√</button>
+        <button class="btn-scientific" onclick="handleOperator('^')">x^y</button>
+        <button class="btn-scientific" onclick="insertConstant('3.14159265')">π</button>
+        <button class="btn-scientific" onclick="insertConstant('2.71828182')">e</button>
+        <button class="btn-operator" onclick="handleOperator('/')">/</button>
+
+        <!-- Row 3 -->
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button class="btn-operator" onclick="handleOperator('*')">*</button>
+        <button class="btn-operator" onclick="handleOperator('-')">-</button>
+
+        <!-- Row 4 -->
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button class="btn-operator" onclick="handleOperator('+')">+</button>
+        <button onclick="appendDecimal()">.</button>
+
+        <!-- Row 5 -->
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button class="btn-operator btn-equals" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+    let currentInput = '0';
+    let previousInput = null;
+    let activeOperator = null;
+    let shouldResetDisplay = false;
+
+    function updateDisplay(value) {
+        display.value = value;
+    }
+
+    function appendNumber(number) {
+        if (shouldResetDisplay) {
+            currentInput = number;
+            shouldResetDisplay = false;
+        } else {
+            if (currentInput === '0') {
+                currentInput = number;
+            } else if (currentInput.length < 18) {
+                currentInput += number;
+            }
+        }
+        updateDisplay(currentInput);
+    }
+
+    function insertConstant(constant) {
+        currentInput = constant;
+        shouldResetDisplay = false;
+        updateDisplay(currentInput);
+    }
+
+    function appendDecimal() {
+        if (shouldResetDisplay) {
+            currentInput = '0.';
+            shouldResetDisplay = false;
+        } else {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+            }
+        }
+        updateDisplay(currentInput);
+    }
+
+    function clearDisplay() {
+        currentInput = '0';
+        previousInput = null;
+        activeOperator = null;
+        shouldResetDisplay = false;
+        updateDisplay('0');
+    }
+
+    function handleOperator(operator) {
+        if (activeOperator && !shouldResetDisplay) {
+            calculate().then(() => {
+                previousInput = currentInput;
+                activeOperator = operator;
+                shouldResetDisplay = true;
+            });
+            return;
+        }
+        previousInput = currentInput;
+        activeOperator = operator;
+        shouldResetDisplay = true;
+    }
+
+    async function handleUnary(operation) {
+        const val = parseFloat(currentInput);
+        if (isNaN(val)) return;
+
+        try {
+            updateDisplay("Calculating...");
+            const response = await fetch('/api/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    operation: operation,
+                    a: val
+                })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                currentInput = String(data.result);
+                updateDisplay(currentInput);
+            } else {
+                updateDisplay(data.detail || "Error");
+                currentInput = '0';
+            }
+        } catch (err) {
+            updateDisplay("Error");
+            currentInput = '0';
+        }
+        shouldResetDisplay = true;
+    }
+
+    async function calculate() {
+        if (!activeOperator || previousInput === null) return;
+
+        const aVal = parseFloat(previousInput);
+        const bVal = parseFloat(currentInput);
+
+        if (isNaN(aVal) || isNaN(bVal)) return;
+
+        try {
+            updateDisplay("Calculating...");
+            const response = await fetch('/api/calculate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    operation: activeOperator,
+                    a: aVal,
+                    b: bVal
+                })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                currentInput = String(data.result);
+                updateDisplay(currentInput);
+            } else {
+                updateDisplay(data.detail || "Error");
+                currentInput = '0';
+            }
+        } catch (err) {
+            updateDisplay("Error");
+            currentInput = '0';
+        }
+
+        activeOperator = null;
+        previousInput = null;
+        shouldResetDisplay = true;
+    }
+</script>
+
+</body>
+</html>
