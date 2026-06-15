@@ -15,27 +15,98 @@
   ╚═══════════════════════════════╝
 ```
 
-### *Natural language in → working project out*
+<div align="center">
 
-*A multi-agent AI development team that turns your request into a complete, working codebase — file by file — using real developer workflows, now managed via an interactive web dashboard.*
+# 🤖 CODER BUDDY
+
+### Natural language in → Working project out
+
+*A multi-agent AI development team that turns your request into a complete working codebase using real developer workflows.*
+
+[🚀 Features](#features) •
+[🏗 Architecture](#architecture) •
+[⚡ Quick Start](#quick-start) •
+[📂 Structure](#project-structure)
 
 </div>
 
-<div>
-Coder Buddy Project/
-├── .junie/                       # Junie agent related files
-├── .vscode/                      # VS Code configurations
-└── Coder Buddy Project/          # Main codebase
-    ├── .env                      # API keys & Env variables
-    ├── .venv/                    # Main python virtual environment (with all dependencies)
-    ├── Projects/                 # Generated project workspaces
-    ├── agent/                    # Code logic / Multi-agent structure
-    │   ├── resources/            # Templates library & assets
-    │   ├── ui/                   # Web Dashboard frontend assets (HTML, CSS, JS)
-    │   └── ...                   
-    ├── main.py                   # Main entry file (starts Web UI or CLI)
-    ├── pyproject.toml            # Dependencies metadata
-    └── README.md                 # Project documentation
+---
+
+## ✨ Features
+
+- 🤖 Multi-Agent Development Team
+- 🌐 Interactive Web Dashboard
+- 📋 Automated Project Planning
+- 💻 Full Code Generation
+- 🧪 Testing & Validation
+- 📚 Documentation Creation
+
+---
+
+## 🏗 Architecture
+
+```mermaid
+flowchart LR
+    A[User Request]
+    --> B[Planner]
+    --> C[Architect]
+    --> D[Coder]
+    --> E[Reviewer]
+    --> F[Working Project]
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+Coder_Buddy/
+├── agent/
+│   ├── resources/
+│   ├── ui/
+│   └── agents/
+├── Projects/
+├── .env
+├── main.py
+├── pyproject.toml
+└── README.md
+```
+
+---
+
+## ⚡ Quick Start
+
+```bash
+git clone <repo>
+cd Coder_Buddy
+pip install -r requirements.txt
+python main.py
+```
+
+---
+
+## 🎯 Example
+
+**Input**
+
+> Build a SaaS CRM with FastAPI and React
+
+**Output**
+
+✅ Architecture  
+✅ Backend APIs  
+✅ Frontend UI  
+✅ Database Models  
+✅ Tests  
+✅ Documentation
+
+---
+
+<div align="center">
+
+### 🚀 Build software like a real AI engineering team
+
+⭐ Star the repository if you find it useful
 
 </div>
 
