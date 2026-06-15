@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coder Buddy - Interactive Agent Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Graphic glows -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="app-container">
+        <!-- Sidebar/Branding Panel -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-robot brand-icon"></i>
+                <h2>Coder <span>Buddy</span></h2>
+                <p>Multi-Agent Project Planner</p>
+            </div>
+            
+            <nav class="side-menu">
+                <div class="menu-item active">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Orchestrator</span>
+                </div>
+            </nav>
+            
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>Agent Server Online</span>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <header class="top-header">
+                <h1>Interactive Workspace</h1>
+                <div class="user-profile">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span>Developer</span>
+                </div>
+            </header>
+
+            <div class="grid-layout">
+                <!-- Left Column: Controls and Planning -->
+                <div class="left-col">
+                    <!-- Prompt Panel -->
+                    <section class="card prompt-card">
+                        <div class="card-header">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <h3>Design Your Project</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="generation-form" onsubmit="submitPrompt(event)">
+                                <div class="form-group">
+                                    <label for="prompt">What do you want to build?</label>
+                                    <textarea id="prompt" placeholder="e.g., Build a full-stack personal budget tracker with login and local sqlite database..." required></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group slider-group">
+                                        <label for="recursion-limit">Recursion Limit: <span id="recursion-value">100</span></label>
+                                        <input type="range" id="recursion-limit" min="10" max="200" value="100" oninput="document.getElementById('recursion-value').textContent = this.value">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-submit" id="btn-submit">
+                                    <span class="btn-text">Generate Project</span>
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- Timeline Panel -->
+                    <section class="card timeline-card">
+                        <div class="card-header">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <h3>Agent Pipeline Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-step" id="step-planner">
+                                    <div class="step-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                                    <div class="step-details">
+                                        <h4>Planner Agent</h4>
+                                        <p>Analyzing requirements and crafting the file plan.</p>
+                                    </div>
+                                    <div class="step-badge">Idle</div>
+                                </div>
+
+                                <div class="timeline-step" id="step-architect">
+                                    <div class="step-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                                    <div class="step-details">
+                                        <h4>Architect Agent</h4>
+                                        <p>Structuring implementation steps and system interfaces.</p>
+                                    </div>
+                                    <div class="step-badge">Idle</div>
+                                </div>
+
+                                <div class="timeline-step" id="step-coder">
+                                    <div class="step-icon"><i class="fa-solid fa-code"></i></div>
+                                    <div class="step-details">
+                                        <h4>Coder Agent</h4>
+                                        <p>Writing modules, integration endpoints, and pages.</p>
+                                    </div>
+                                    <div class="step-badge">Idle</div>
+                                </div>
+
+                                <div class="timeline-step" id="step-reviewer">
+                                    <div class="step-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                    <div class="step-details">
+                                        <h4>Reviewer Agent</h4>
+                                        <p>Verifying compile checks and running automated unit tests.</p>
+                                    </div>
+                                    <div class="step-badge">Idle</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Live Logs and Output -->
+                <div class="right-col">
+                    <!-- Console/Terminal Panel -->
+                    <section class="card console-card">
+                        <div class="card-header">
+                            <div class="title-wrapper">
+                                <i class="fa-solid fa-terminal"></i>
+                                <h3>Agent Live Console</h3>
+                            </div>
+                            <button class="btn-clear" onclick="clearConsole()"><i class="fa-solid fa-trash-can"></i> Clear</button>
+                        </div>
+                        <div class="console-body" id="console-output">
+                            <div class="console-line system-msg">System initialized. Waiting for prompt submission...</div>
+                        </div>
+                    </section>
+
+                    <!-- Success Details Card (Initially hidden) -->
+                    <section class="card success-card hidden" id="success-panel">
+                        <div class="card-header">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h3>Project Generated Successfully!</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="project-info">
+                                <div class="info-item">
+                                    <span class="label">Project Name:</span>
+                                    <span class="val" id="res-project-name">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Directory Path:</span>
+                                    <span class="val path-highlight" id="res-project-path">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Tech Stack:</span>
+                                    <span class="val" id="res-project-tech">-</span>
+                                </div>
+                            </div>
+                            <div class="file-list-wrapper">
+                                <h4>Generated Files:</h4>
+                                <ul class="file-list" id="res-file-list">
+                                    <!-- Populated dynamically -->
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,37 +1,70 @@
-// Current used-
-// Technologies Used
+# Coder Buddy - Technologies & Features
 
-Python
-LangChain
-LangGraph
-Groq LLM API
-Ollama Local LLM API (gemma4:e2b-it-qat via langchain-ollama)
-Pydantic
-File System Tools
-PyCharm / VS Code IDE
+This document details the technologies, capabilities, and system features currently supported by the Coder Buddy Multi-Agent system.
 
-Full-Stack application generation
+---
 
-Database integration - using localStorage & Real Databases (MySQL + MongoDB)
+## 🛠️ Core Technologies
+* **Language:** Python >= 3.11
+* **Agent Framework:** LangGraph (StateGraph workflow orchestration) & LangChain Core
+* **LLM Engine APIs:**
+  * **Groq LLM API** (Primary Cloud Model)
+  * **Ollama Local LLM API** (Local fallback model: `gemma4:e2b-it-qat` via `langchain-ollama`)
+* **Data Validation:** Pydantic (v2 schemas for structured tool outputs and state representations)
+* **Development Environments:** PyCharm, VS Code, and CLI Terminal
 
-File upload from the local file system 
+---
+
+## 🚀 Key Features & Capabilities
+
+### 1. Full-Stack Code Generation
+- Automated parallel planning, architecting, and writing of frontend and backend source files.
+- High compatibility across multiple programming languages (Python, HTML, CSS, JavaScript, SQL).
+
+### 2. Multi-Database Integration
+- Frontend data caching using **LocalStorage** for instant loads.
+- Full-stack persistency layers for **MySQL** and **MongoDB** databases.
+
+### 3. File System & Tool Security
+- Sandbox-compliant file read/write operations constrained strictly within the output project root.
+- Parsing of local files uploaded by the user to ingest codebase context.
+
+### 4. Code Review & Auto-Correction Loops
+- Automated compilation check (`python -m py_compile`) on all Python source code.
+- Intelligent feedback iteration loops where the reviewer agent rejects buggy code and triggers auto-fixes.
+
+### 5. User Authentication Templates
+- Pre-built templates for **JWT token-based auth** (FastAPI) and **Session-based auth** (Flask).
+- Fully responsive **Glassmorphic Login/Signup HTML UI templates** utilizing localized token storage.
+
+### 6. Advanced Automated Testing
+- Automated discovery and execution of unittest scripts (`test_*.py` or `tests/` directories).
+- Aggregation of test execution logs directly into the review phase feedback.
+
+### 7. Cloud Hosting & Deployment Configs
+- Containerization setup: **Dockerfile** and **docker-compose.yml** configuration for local and cloud environments.
+- Platform blueprints: **Render** (`render.yaml`) and **Vercel** (`vercel.json`) configurations.
+- Custom step-by-step guides (`DEPLOY.md`) automatically created for every project.
+
+---
+
+## 📡 Cloud Deployment Automation
+Coder Buddy changes are automatically synchronized to GitHub in the background.
+* **Sync command:** `python git_auto_sync.py`
+
+---
+
+## 🔮 Future Roadmap & Ideas
+* Interactive UI web dashboard for monitoring Coder Buddy runs.
+* Native support for frontend framework initialization (React, Vite, Next.js).
+* Automated API documentation generation (OpenAPI/Swagger schemas).
 
 
-Code review and testing agents 
+
+🔮 Future Upgrade Idea:
 
 
-Support for multiple programming languages
-
-Cloud deployment automation (Finally github auto update Done)
-command is: python git_auto_sync.py
-
-User Authentication Templates (JWT, Sessions, and beautiful Glassmorphic templates)
-
-Advanced Automated Testing Frameworks (Automated test discovery and execution in review loop)
-
-Real Cloud Hosting Deployment Configurations (Docker, Vercel, and Render configs with DEPLOY.md)
-
-
-// Future Technology-
-None (all previous targets implemented)
-
+user interface (done)
+Modify Existing Project
+live chat box 
+make a zip file to download proejct 
