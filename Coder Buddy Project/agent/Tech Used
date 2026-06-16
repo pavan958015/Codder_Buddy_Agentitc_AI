@@ -20,7 +20,7 @@ This document details the technologies, capabilities, and system features curren
 
 ### 1. Full-Stack Code Generation
 - Automated parallel planning, architecting, and writing of frontend and backend source files.
-- High compatibility across multiple programming languages (Python, HTML, CSS, JavaScript, SQL).
+- High compatibility across multiple programming languages (Python,Java, HTML, CSS, JavaScript, SQL).
 
 ### 2. Multi-Database Integration
 - Frontend data caching using **LocalStorage** for instant loads.

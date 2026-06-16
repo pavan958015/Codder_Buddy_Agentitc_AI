@@ -1,6 +1,6 @@
 from agent.llm import llm
-from agent.models import ReviewResult
-from agent.prompts import reviewer_system_prompt, reviewer_user_prompt
+from agent.reviewer.models import ReviewResult
+from agent.reviewer.prompts import reviewer_system_prompt, reviewer_user_prompt
 from agent.tools import list_files, read_file, run_cmd
 
 

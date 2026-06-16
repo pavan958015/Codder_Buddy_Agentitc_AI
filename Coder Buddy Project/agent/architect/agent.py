@@ -1,8 +1,8 @@
 from agent.config import init_project_root
 from agent.llm import llm
-from agent.models import Plan, TaskPlan
-from agent.prompts import architect_prompt
-
+from agent.planner.models import Plan
+from agent.architect.models import TaskPlan
+from agent.architect.prompts import architect_prompt
 
 def architect_agent(state: dict) -> dict:
     """Creates TaskPlan from Plan and initializes project folder."""

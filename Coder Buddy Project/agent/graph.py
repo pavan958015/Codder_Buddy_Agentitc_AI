@@ -1,14 +1,11 @@
 from langgraph.constants import END
 from langgraph.graph import StateGraph
 
-from agent.services import (
-    planner_agent,
-    architect_agent,
-    coder_agent,
-    reviewer_agent,
-    route_coder,
-    route_reviewer,
-)
+from agent.planner.agent import planner_agent
+from agent.architect.agent import architect_agent
+from agent.coder.agent import coder_agent
+from agent.reviewer.agent import reviewer_agent
+from agent.routers import route_coder, route_reviewer
 
 # Initialize the StateGraph orchestrating dict state
 graph = StateGraph(dict)

@@ -1,7 +1,6 @@
 from agent.llm import llm
-from agent.models import Plan
-from agent.prompts import planner_prompt
-
+from agent.planner.models import Plan
+from agent.planner.prompts import planner_prompt
 
 def planner_agent(state: dict) -> dict:
     """Converts user prompt into a structured Plan."""
