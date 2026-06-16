@@ -107,12 +107,14 @@ Below is a preview of the Coder Buddy Interactive Web UI dashboard, accessible a
 agent/
 ├── config/       # Configurations: dot-env variables and target output paths
 ├── llm/          # Large Language Model client setup (Groq / Ollama)
-├── models/       # Pydantic schemas validating LangGraph agent state transitions
-├── prompts/      # Customized system prompts and task instructions for agents
+├── planner/      # Self-contained Planner agent: agent code, local models & prompts
+├── architect/    # Self-contained Architect agent: agent code, local models & prompts
+├── coder/        # Self-contained Coder agent: agent code, local models & prompts
+├── reviewer/     # Self-contained Reviewer agent: agent code, local models & prompts
 ├── resources/    # Boilerplate templates library (JWT Auth, Docker, Vercel/Render guides)
 ├── tools/        # Path-validated OS tools: write_file, read_file, list_files, get_template
 ├── ui/           # Web Assets frontend: index.html, style.css, app.js
-├── services/     # Core micro-agent nodes and conditional routers
+├── routers.py    # Routing helpers for LangGraph workflow transitions
 └── graph.py      # LangGraph configuration assembling StateGraph and compilation
 ```
 
