@@ -1,6 +1,39 @@
+import os
 import pathlib
+import subprocess
+from datetime import datetime
+from typing import Tuple
 from langchain_core.tools import tool
-from agent.config import get_project_root
+
+# --- Dynamic Project Root Management ---
+PROJECT_ROOT = None
+
+
+def init_project_root(project_name: str) -> str:
+    """Initializes the output project root directory in workspace/Projects/."""
+    global PROJECT_ROOT
+
+    safe_name = (
+        project_name.lower()
+        .replace(" ", "_")
+        .replace("-", "_")
+    )
+
+    folder_name = f"{safe_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    # Project root points to the Projects folder inside current working directory
+    PROJECT_ROOT = pathlib.Path.cwd() / "Projects" / folder_name
+    PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
+
+    print(f"\nProject Created At: {PROJECT_ROOT}\n")
+    return str(PROJECT_ROOT)
+
+
+def get_project_root() -> pathlib.Path:
+    """Returns the initialized PROJECT_ROOT or raises ValueError if not set."""
+    global PROJECT_ROOT
+    if PROJECT_ROOT is None:
+        raise ValueError("Project root not initialized")
+    return PROJECT_ROOT
 
 
 def safe_path_for_project(path: str) -> pathlib.Path:
@@ -16,6 +49,8 @@ def safe_path_for_project(path: str) -> pathlib.Path:
 
     return p
 
+
+# --- LangChain Core File IO Tools ---
 
 @tool
 def write_file(path: str, content: str) -> str:
@@ -76,3 +111,23 @@ def list_files(directory: str = ".") -> str:
     ]
 
     return "\n".join(files) if files else "No files found."
+
+
+@tool
+def run_cmd(
+    cmd: str, cwd: str = None, timeout: int = 30
+) -> Tuple[int, str, str]:
+    """Runs a shell command in the specified directory and returns the result."""
+    project_root = get_project_root()
+    cwd_dir = safe_path_for_project(cwd) if cwd else project_root
+
+    res = subprocess.run(
+        cmd,
+        shell=True,
+        cwd=str(cwd_dir),
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+    )
+
+    return res.returncode, res.stdout, res.stderr

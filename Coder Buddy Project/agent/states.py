@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field, ConfigDict
 
 
@@ -17,10 +17,10 @@ class Plan(BaseModel):
     techstack: str = Field(
         description="The tech stack to be used for the app, e.g. 'python', 'javascript', 'react', 'flask', etc."
     )
-    features: list[str] = Field(
+    features: List[str] = Field(
         description="A list of features that the app should have, e.g. 'user authentication', 'data visualization', etc."
     )
-    files: list[File] = Field(
+    files: List[File] = Field(
         description="A list of files to be created, each with a 'path' and 'purpose'"
     )
 
@@ -33,7 +33,7 @@ class ImplementationTask(BaseModel):
 
 
 class TaskPlan(BaseModel):
-    implementation_steps: list[ImplementationTask] = Field(
+    implementation_steps: List[ImplementationTask] = Field(
         description="A list of steps to be taken to implement the task"
     )
     model_config = ConfigDict(extra="allow")
@@ -65,6 +65,6 @@ class ReviewResult(BaseModel):
     approved: bool = Field(
         description="Whether the project code is approved and free of major bugs/syntax errors"
     )
-    feedbacks: list[FileFeedback] = Field(
+    feedbacks: List[FileFeedback] = Field(
         description="List of feedbacks for specific files if not approved"
     )
