@@ -25,4 +25,5 @@ __pycache__/
 .junie/
 
 # User output / generated projects
-**/Projects/
+# **/Projects/
+
