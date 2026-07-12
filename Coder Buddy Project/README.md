@@ -26,9 +26,9 @@ Coder Buddy Project/
 ├── .vscode/                      # VS Code configurations
 └── Coder Buddy Project/          # Main codebase
     ├── .env                      # API keys & Env variables
-    ├── .venv/                    # Main python virtual environment (with all dependencies)
-    ├── Projects/                 # Empty folder (aapke naye generated projects ke liye)
-    ├── agent/                    # Code logic / Multi-agent structure
+    ├── .venv/                    # Main python virtual environment
+    ├── Projects/                 # Folder containing your generated projects (e.g. dashboards, portfolios)
+    ├── agent/                    # Code logic / Refactored multi-agent structure
     ├── resources/                # Assets/Diagrams for readme
     ├── main.py                   # Main entry file
     ├── pyproject.toml            # Dependencies metadata
@@ -40,35 +40,53 @@ Coder Buddy Project/
 
 ## 🏗️ Architecture
 
-Three specialized agents work in sequence, each handing off structured context to the next — like a real development team:
+Four specialized agents work in a cyclic workflow to plan, outline, generate, and self-heal the code using a feedback loop:
 
-```
-┌──────────────┐     ┌────────────────┐     ┌─────────────────┐
-│   🗂 Planner  │ ──▶ │  🏛 Architect  │ ──▶ │    💻 Coder     │
-│              │     │                │     │                 │
-│ Analyzes the │     │ Breaks plan    │     │ Writes files,   │
-│ request and  │     │ into file-     │     │ runs tools,     │
-│ generates a  │     │ level tasks    │     │ iterates with   │
-│ project plan │     │ with context   │     │ ReAct loop      │
-└──────────────┘     └────────────────┘     └─────────────────┘
-      │                     │                       │
-   Pydantic             Pydantic              Tool Use Loop
-   Schema               Schema               (write · read · run)
+```text
+                               ┌─────────────────┐
+                               │   User Prompt   │
+                               └────────┬────────┘
+                                        ▼
+                              ┌───────────────────┐
+                              │   Planner Agent   │  ==> Creates High-Level Plan
+                              └────────┬──────────┘
+                                        ▼
+                              ┌───────────────────┐
+                              │  Architect Agent  │  ==> Outlines Files & Tasks
+                              └────────┬──────────┘
+                                        ▼
+                       ┌───────────────►├───────────────┐
+                       │                ▼               │
+                       │      ┌───────────────────┐     │
+                       │      │    Coder Agent    │     │  ==> Writes Code using Tools (ReAct)
+                       │      └────────┬──────────┘     │
+                       │                ▼               │
+                       │      ┌───────────────────┐     │
+                       │      │  Reviewer Agent   │     │  ==> Runs Compilation & Logic Checks
+                       │      └────────┬──────────┘     │
+                       │                │               │
+                       │     Fail       ▼      Pass     │
+                       └────────── [Approved?] ─────────┘
+                                        │
+                                        ▼
+                               ┌─────────────────┐
+                               │  Finished App   │
+                               └─────────────────┘
 ```
 
 ---
 
 ## 📂 Module Structure
 
-```
+The multi-agent system has been refactored into a clean, consolidated **5-file layout** under `agent/`:
+
+```text
 agent/
-├── config/       # Python · dotenv     → Env configuration & output paths
-├── llm/          # Groq · Ollama       → LLM client initialization
-├── models/       # Pydantic            → Validation schemas & agent states
-├── prompts/      # LangChain           → Prompt templates per agent
-├── tools/        # Custom OS tools     → write_file · read_file · list_files · run_cmd
-├── services/     # Micro-agent logic   → Node implementations & state routers
-└── graph.py      # LangGraph           → Assembles, compiles & exposes the StateGraph
+├── __init__.py   # Package initialization
+├── graph.py      # LangGraph workflow orchestration & agent node definitions
+├── prompts.py    # Consolidated agent prompts (Planner, Architect, Coder, Reviewer)
+├── states.py     # Pydantic validation schemas & Agent State definitions
+└── tools.py      # Integrated file system & terminal tools (read/write files, run commands)
 ```
 
 ---
