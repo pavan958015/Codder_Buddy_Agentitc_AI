@@ -2,6 +2,9 @@ def planner_prompt(user_prompt: str) -> str:
     PLANNER_PROMPT = f"""
 You are the PLANNER agent. Convert the user prompt into a COMPLETE engineering project plan.
 
+MANDATORY PLAN REQUIREMENTS:
+- Every project plan MUST include a 'README.md' file at the root of the project directory. The purpose of this file is to document the project name, description, installation guide, list of files, and step-by-step commands to run both the frontend and backend.
+
 User request:
 {user_prompt}
     """

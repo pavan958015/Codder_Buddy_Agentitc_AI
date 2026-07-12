@@ -113,3 +113,4 @@ The workflow models the development lifecycle as a State Machine using `StateGra
 
 ### Q5. How does the self-healing cycle prevent infinite loops?
 > **Answer:** In `main.py`, the graph is executed with a `recursion_limit` parameter (default: 100). If the Coder and Reviewer get stuck in a feedback loop due to a hard-to-solve bug, LangGraph automatically halts execution once the transition count exceeds the limit, preventing resource exhaustion and infinite API billing.
+
